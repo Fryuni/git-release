@@ -1,6 +1,7 @@
 package release_test
 
 import (
+	"io/ioutil"
 	"testing"
 
 	"github.com/anton-yurchenko/git-release/internal/pkg/asset"
@@ -16,7 +17,7 @@ import (
 
 func TestPublish(t *testing.T) {
 	assert := assert.New(t)
-	log.SetLevel(log.FatalLevel)
+	log.SetOutput(ioutil.Discard)
 
 	// TEST: successfull release without assets
 	messages := make(chan string)

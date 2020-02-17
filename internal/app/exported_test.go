@@ -1,6 +1,7 @@
 package app_test
 
 import (
+	"io/ioutil"
 	"os"
 	"testing"
 
@@ -18,7 +19,7 @@ import (
 
 func TestGetConfig(t *testing.T) {
 	assert := assert.New(t)
-	log.SetLevel(log.FatalLevel)
+	log.SetOutput(ioutil.Discard)
 	fs := afero.NewMemMapFs()
 	rel := new(release.Release)
 	rel.Changes = new(changelog.Changes)
@@ -287,7 +288,7 @@ func TestGetReleaseBody(t *testing.T) {
 	assert.EqualError(err, "changelog does not contain changes for requested project version")
 
 	// TEST: changelog error
-	log.SetLevel(log.FatalLevel)
+	log.SetOutput(ioutil.Discard)
 	m = new(mocks.Changelog)
 	fs = afero.NewMemMapFs()
 	conf = &app.Configuration{
@@ -305,7 +306,7 @@ func TestGetReleaseBody(t *testing.T) {
 
 func TestPublish(t *testing.T) {
 	assert := assert.New(t)
-	log.SetLevel(log.FatalLevel)
+	log.SetOutput(ioutil.Discard)
 
 	// TEST: no exec errors
 	m := new(mocks.Release)

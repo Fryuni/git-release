@@ -2,6 +2,7 @@ package asset_test
 
 import (
 	"fmt"
+	"io/ioutil"
 	"testing"
 
 	"sync"
@@ -37,7 +38,7 @@ func TestSetPath(t *testing.T) {
 
 func TestUpload(t *testing.T) {
 	assert := assert.New(t)
-	log.SetLevel(log.FatalLevel)
+	log.SetOutput(ioutil.Discard)
 
 	var id int64
 
