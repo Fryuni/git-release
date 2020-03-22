@@ -3,6 +3,7 @@ package changelog
 import (
 	"bufio"
 	"regexp"
+	"strings"
 
 	"github.com/spf13/afero"
 )
@@ -35,7 +36,11 @@ func GetEndOfFirstRelease(content []string) int {
 
 	for i := 0; i < len(content); i++ {
 		if regex.MatchString(content[i]) {
-			return i - 1
+			if strings.HasPrefix(content[i], "[Full Changelog]") {
+				return i + 1
+			} else {
+				return i - 1
+			}
 		}
 	}
 
